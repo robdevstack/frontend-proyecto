@@ -23,7 +23,7 @@ const Profile = () => {
 
   return (
     <div>
-      <h2>Bienvenido, {userData?.email}</h2>
+      <h2>Bienvenido, {userData?.nombre}</h2>
 
       <a href="http://localhost:3001/form" class="btn btn-primary">Crear producto</a>
 
