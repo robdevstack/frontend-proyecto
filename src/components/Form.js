@@ -12,7 +12,7 @@ const Form = ({ onAddPost }) => {
   const agregarPost = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:3000/posts',
+        'https://backend-jags.onrender.com/posts',
         {
           titulo,
           img,

@@ -11,7 +11,7 @@ const Register = () => {
     const handleRegister = async () => {
         try {
             const response = await axios.post(
-                'http://localhost:3000/usuarios',
+                'https://backend-jags.onrender.com/usuarios',
                 {
                     email,
                     password,

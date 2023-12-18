@@ -9,7 +9,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3000/usuarios', {
+        const response = await axios.get('https://backend-jags.onrender.com/usuarios', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserData(response.data);
@@ -25,7 +25,7 @@ const Profile = () => {
     <div>
       <h2>Bienvenido, {userData?.nombre}</h2>
 
-      <a href="http://localhost:3001/form" class="btn btn-primary">Crear producto</a>
+      <a href="https://frontend-ihj9.onrender.com/form" class="btn btn-primary">Crear producto</a>
 
 
     </div>

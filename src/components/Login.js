@@ -17,7 +17,7 @@ const Login = ({ onLogin }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/login', {
+      const response = await axios.post('https://backend-jags.onrender.com/login', {
         email,
         password,
       });
