@@ -29,6 +29,9 @@ const Profile = () => {
       <a class="btn btn-primary"><Link className="navbar-brand" to="/form">
           Crear Producto
         </Link></a>
+        <a class="btnverde btn btn-success"><Link className="navbar-brand" to="/form">
+          volver al formulario
+        </Link></a>
 
 
     </div>
