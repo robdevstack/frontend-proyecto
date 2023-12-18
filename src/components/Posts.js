@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 const Posts = ({ posts }) => {
   return (
     <div>
+                    <a class="btn btn-success"><Link className="navbar-brand" to="/form">
+          volver al formulario
+        </Link></a>
       <h2 className='titulo-posts'>Lista de Productos</h2>
       {posts.length === 0 ? (
         <p>No hay posts disponibles.</p>
@@ -11,9 +14,6 @@ const Posts = ({ posts }) => {
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {posts.map((post) => (
             <div key={post.id} className="col">
-              <a class="btn btn-success"><Link className="navbar-brand" to="/form">
-          volver al formulario
-        </Link></a>
               <div className="card card1">
                 <img
                   src={post.img}
