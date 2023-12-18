@@ -24,8 +24,10 @@ const Profile = () => {
   return (
     <div>
       <h2>Bienvenido, {userData?.nombre}</h2>
-
-      <a href="https://frontend-ihj9.onrender.com/form" class="btn btn-primary">Crear producto</a>
+      
+      <a class="btn btn-primary"><Link className="navbar-brand" to="/form">
+          Crear Producto
+        </Link></a>
 
 
     </div>
