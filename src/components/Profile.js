@@ -1,5 +1,6 @@
 // src/components/Profile.js
-import React, { useEffect, useState, Link } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Profile = () => {
