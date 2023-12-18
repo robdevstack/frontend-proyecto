@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Posts = ({ posts }) => {
   return (
     <div>
-                    <a class="btn btn-success"><Link className="navbar-brand" to="/form">
+                    <a class="btnverde btn btn-success"><Link className="navbar-brand" to="/form">
           volver al formulario
         </Link></a>
       <h2 className='titulo-posts'>Lista de Productos</h2>
