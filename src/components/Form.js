@@ -27,23 +27,19 @@ const Form = ({ onAddPost }) => {
       );
 
       if (response.status === 200) {
-        // Llama a la función proporcionada por el componente padre para manejar la lógica de agregar post
         onAddPost(response.data);
-
-        // Limpiar los campos después de agregar el post
         setTitulo('');
         setImg('');
         setDescripcion('');
         setPrecio('');
-
-        // Redirige a la nueva ruta después de agregar el post
         navigate('/posts');
       } else {
         console.error('Error al agregar el post:', response.data);
       }
     } catch (error) {
       console.error('Error en la solicitud para agregar el post:', error.response || error.message || error);
-    }    }
+    }
+  };
 
   return (
     <div className="App">
