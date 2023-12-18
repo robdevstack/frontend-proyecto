@@ -37,7 +37,7 @@ const Form = ({ onAddPost }) => {
         setPrecio('');
 
         // No redirige a la nueva ruta después de agregar el post
-        // navigate('/posts'); // Remove this line
+        navigate('/posts');
       } else {
         console.error('Error al agregar el post:', response.data);
       }
