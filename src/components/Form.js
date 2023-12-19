@@ -32,7 +32,12 @@ const Form = () => {
       );
 
       if (response.status === 200) {
-        // Redirige a la nueva ruta después de agregar el post
+        // Actualiza la lista de posts en localStorage
+        const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
+        const updatedPosts = [...existingPosts, response.data];
+        localStorage.setItem('posts', JSON.stringify(updatedPosts));
+  
+        // Redirige a la ruta '/posts'
         navigate('/posts');
       } else {
         console.error('Error al agregar el post:', response.data);

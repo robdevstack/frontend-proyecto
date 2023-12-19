@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Posts = ({ posts }) => {
+const Posts = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // Obtiene la lista de posts desde localStorage al montar el componente
+    const storedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+    setPosts(storedPosts);
+  }, []);
   return (
     <div>
                     <a class="btnverde btn btn-success"><Link className="navbar-brand" to="/form">
