@@ -78,7 +78,7 @@ const Login = ({ onLogin }) => {
 
     <div className="text-center">
       <p>
-        No eres miembro?  <a><Link className="navbar-brand" to="/form">
+        No eres miembro?  <a><Link className="navbar-brand" to="/register">
           Regístrate
         </Link></a>
       </p>

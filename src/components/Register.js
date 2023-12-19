@@ -83,7 +83,7 @@ const Register = () => {
 
                 <div className="text-center">
                     <p>
-                        ¿Ya eres miembro?  <a><Link className="navbar-brand" to="/form">
+                        ¿Ya eres miembro?  <a><Link className="navbar-brand" to="/login">
           Inicia sesión
         </Link></a>
                     </p>
