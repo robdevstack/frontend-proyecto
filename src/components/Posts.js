@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -11,7 +11,7 @@ const Posts = () => {
   }, []);
   return (
     <div>
-                    <a class="btnverde btn btn-success"><Link className="navbar-brand" to="/form">
+                    <a className="btnverde btn btn-success"><Link className="navbar-brand" to="/form">
           volver al formulario
         </Link></a>
       <h2 className='titulo-posts'>Lista de Productos</h2>
