@@ -9,6 +9,8 @@ import Form from './components/Form';
 import Posts from './components/Posts';
 import Home from './components/Home';
 import Detalle from './components/Detalle';
+import { AuthProvider } from './components/AuthContext';
+
 const App = () => {
   
   const initialLoggedInState = localStorage.getItem('loggedIn') === 'true';
@@ -36,33 +38,35 @@ const App = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const usuarioId = localStorage.getItem('usuarioId'); // Obtener el ID del usuario autenticado
+        if (loggedIn) {
+          const token = localStorage.getItem('token');
+          const usuarioId = localStorage.getItem('usuarioId'); // Obtener el ID del usuario autenticado
   
-        const response = await fetch(`https://backend-jags.onrender.com/posts?usuario_id=${usuarioId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+          const response = await fetch(`https://backend-jags.onrender.com/posts?usuario_id=${usuarioId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
   
-        if (!response.ok) {
-          throw new Error(`Error en la respuesta del servidor: ${response.statusText}`);
+          if (!response.ok) {
+            throw new Error(`Error en la respuesta del servidor: ${response.statusText}`);
+          }
+  
+          const data = await response.json();
+          setPosts(data);
         }
-  
-        const data = await response.json();
-        setPosts(data);
       } catch (error) {
         console.error('Error al obtener los posts:', error.message);
       }
     };
   
     fetchPosts();
-  }, []);
+  }, [loggedIn]);
 
   return (
+    <AuthProvider>
     <Router>
       <div>
-        
         <Navbar loggedIn={loggedIn} onLogout={handleLogout} />
         <Routes>
           <Route path='/' element={ <Home /> } />
@@ -122,6 +126,7 @@ const App = () => {
         </Routes>
       </div>
     </Router>
+    </AuthProvider>
   );
 };
 

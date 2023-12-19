@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
-const Form = ({ onAddPost }) => {
+const Form = () => {
+  const { usuarioId } = useAuth();
+  const navigate = useNavigate();
   const [titulo, setTitulo] = useState('');
   const [img, setImg] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [precio, setPrecio] = useState('');
-  const navigate = useNavigate();
 
   const agregarPost = async () => {
     try {
+      // Validaciones necesarias, por ejemplo, verificar que los campos no estén vacíos
+
       const response = await axios.post(
         'https://backend-jags.onrender.com/posts',
         {
+          usuario_id: usuarioId,
           titulo,
           img,
           descripcion,
@@ -27,22 +32,13 @@ const Form = ({ onAddPost }) => {
       );
 
       if (response.status === 200) {
-        // Llama a la función proporcionada por el componente padre para manejar la lógica de agregar post
-        onAddPost(response.data);
-
-        // Limpiar los campos después de agregar el post
-        setTitulo('');
-        setImg('');
-        setDescripcion('');
-        setPrecio('');
-
-        // No redirige a la nueva ruta después de agregar el post
+        // Redirige a la nueva ruta después de agregar el post
         navigate('/posts');
       } else {
         console.error('Error al agregar el post:', response.data);
       }
     } catch (error) {
-      console.error('Error en la solicitud para agregar el post:', error.response || error.message || error);
+      console.error('Error al agregar el post:', error.response || error.message || error);
     }
   };
 

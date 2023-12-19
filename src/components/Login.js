@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from './AuthContext';
 
 const Login = ({ onLogin }) => {
+  const { setUsuarioId } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -25,6 +27,15 @@ const Login = ({ onLogin }) => {
       const token = response.data;
       localStorage.setItem('token', token);
       onLogin();
+
+      // Obtener el usuarioId después de iniciar sesión
+      const usuarioResponse = await axios.get('https://backend-jags.onrender.com/usuarios', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const usuarioId = usuarioResponse.data.id;
+      
+      // Utiliza setUsuarioId para actualizar el usuarioId en el contexto de autenticación
+      setUsuarioId(usuarioId);
 
       // Muestra alerta de éxito
       alert('Inició sesión con éxito');
