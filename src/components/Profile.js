@@ -26,10 +26,17 @@ const Profile = () => {
 
   return (
     <div>
-      <h2>Bienvenido, {userData?.nombre}</h2>
-      <Link to="/form">Crear Producto</Link>
-      <Link to="/posts">Mis Productos</Link>
-    </div>
+    <h2>Bienvenido, {userData?.nombre}</h2>
+    
+    <a class="btn btn-primary"><Link className="navbar-brand" to="/form">
+        Crear Producto
+      </Link></a>
+      <a class="btnverde btn btn-success"><Link className="navbar-brand" to="/posts">
+        Mis Productos
+      </Link></a>
+
+
+  </div>
   );
 };
 
