@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = ({ onLogin }) => {
@@ -78,7 +78,9 @@ const Login = ({ onLogin }) => {
 
     <div className="text-center">
       <p>
-        No eres miembro? <a href="/register">Regístrate</a>
+        No eres miembro?  <a><Link className="navbar-brand" to="/form">
+          Regístrate
+        </Link></a>
       </p>
     </div>
   </div>
