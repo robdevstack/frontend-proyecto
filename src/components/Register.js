@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -83,7 +83,9 @@ const Register = () => {
 
                 <div className="text-center">
                     <p>
-                        ¿Ya eres miembro? <a href="/login">Inicia sesión</a>
+                        ¿Ya eres miembro?  <a><Link className="navbar-brand" to="/form">
+          Inicia sesión
+        </Link></a>
                     </p>
                 </div>
             </div>
