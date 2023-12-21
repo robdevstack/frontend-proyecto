@@ -12,10 +12,11 @@ const Posts = () => {
     if (!postsExist) {
       // Limpiar localStorage si algunos posts no existen en la base de datos
       localStorage.removeItem('posts');
+      setPosts([]); // Clear the posts state
+    } else {
+      setPosts(storedPosts);
     }
-
-    setPosts(storedPosts);
-  }, [posts]);
+  }, []);
   return (
     <div>
                     <a className="btnverde btn btn-success"><Link className="navbar-brand" to="/form">
