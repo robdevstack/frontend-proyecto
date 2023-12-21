@@ -16,7 +16,7 @@ const Form = () => {
       // Validaciones necesarias, por ejemplo, verificar que los campos no estén vacíos
 
       const response = await axios.post(
-        'http://localhost:3000/posts',
+        'https://backend-jags.onrender.com/posts',
         {
           usuario_id: usuarioId,
           titulo,
