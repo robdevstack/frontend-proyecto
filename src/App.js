@@ -22,7 +22,6 @@ const App = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('loggedIn');
-    localStorage.removeItem('posts'); // Agrega esta línea para limpiar los posts
     setLoggedIn(false);
   };
 
@@ -43,7 +42,7 @@ const App = () => {
           const token = localStorage.getItem('token');
           const usuarioId = localStorage.getItem('usuarioId'); // Obtener el ID del usuario autenticado
   
-          const response = await fetch(`https://backend-jags.onrender.com/posts?usuario_id=${usuarioId}`, {
+          const response = await fetch(`http://localhost:3000/posts?usuario_id=${usuarioId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
