@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 const Posts = () => {
+  const [posts, setPosts] = useState([]); // Declare the posts state
+
   useEffect(() => {
     const storedPosts = JSON.parse(localStorage.getItem('posts')) || [];
     const postIds = storedPosts.map(post => post.id);
@@ -16,7 +18,7 @@ const Posts = () => {
     } else {
       setPosts(storedPosts);
     }
-  }, []);
+  }, [posts]);
   return (
     <div>
                     <a className="btnverde btn btn-success"><Link className="navbar-brand" to="/form">
