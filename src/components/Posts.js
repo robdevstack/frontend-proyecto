@@ -2,23 +2,13 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 const Posts = () => {
-  const [posts, setPosts] = useState([]); // Declare the posts state
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    // Obtiene la lista de posts desde localStorage al montar el componente
     const storedPosts = JSON.parse(localStorage.getItem('posts')) || [];
-    const postIds = storedPosts.map(post => post.id);
-
-    // Verificar si los posts almacenados en localStorage aún existen en la base de datos
-    const postsExist = posts.every(post => postIds.includes(post.id));
-
-    if (!postsExist) {
-      // Limpiar localStorage si algunos posts no existen en la base de datos
-      localStorage.removeItem('posts');
-      setPosts([]); // Clear the posts state
-    } else {
-      setPosts(storedPosts);
-    }
-  }, [posts]);
+    setPosts(storedPosts);
+  }, []);
   return (
     <div>
                     <a className="btnverde btn btn-success"><Link className="navbar-brand" to="/form">

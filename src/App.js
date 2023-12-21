@@ -22,6 +22,7 @@ const App = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('loggedIn');
+    localStorage.removeItem('posts'); // Agrega esta línea para limpiar los posts
     setLoggedIn(false);
   };
 
