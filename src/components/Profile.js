@@ -34,6 +34,8 @@ const Profile = () => {
       <a class="btnverde btn btn-success"><Link className="navbar-brand" to="/posts">
         Mis Productos
       </Link></a>
+
+
   </div>
   );
 };
