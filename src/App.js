@@ -10,6 +10,7 @@ import Posts from './components/Posts';
 import Home from './components/Home';
 import Detalle from './components/Detalle';
 import { AuthProvider } from './components/AuthContext';
+import Productos from './components/Productos';
 
 const App = () => {
   
@@ -96,6 +97,16 @@ const App = () => {
             element={
               loggedIn ? (
                 <Posts posts={posts} />
+              ) : (
+                <Navigate to='/login' />
+              )
+            }
+          />
+                              <Route
+            path='/Productos'
+            element={
+              loggedIn ? (
+                <Productos posts={posts} />
               ) : (
                 <Navigate to='/login' />
               )
