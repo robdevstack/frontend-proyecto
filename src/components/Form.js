@@ -13,10 +13,14 @@ const Form = () => {
 
   const agregarPost = async () => {
     try {
-      // Validaciones necesarias, por ejemplo, verificar que los campos no estén vacíos
+      // Validar que los campos obligatorios no estén vacíos
+      if (!titulo || !img || !descripcion || !precio) {
+        alert('Rellenar campos solicitados.');
+        return;
+      }
 
       const response = await axios.post(
-        'https://backend-jags.onrender.com/posts',
+        'http://backend-jags.onrender.com/posts',
         {
           usuario_id: usuarioId,
           titulo,
@@ -32,12 +36,12 @@ const Form = () => {
       );
 
       if (response.status === 200) {
-        // Actualiza la lista de posts en localStorage
+        // Actualizar la lista de posts en localStorage
         const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
         const updatedPosts = [...existingPosts, response.data];
         localStorage.setItem('posts', JSON.stringify(updatedPosts));
-  
-        // Redirige a la ruta '/posts'
+
+        // Redirigir a la ruta '/posts'
         navigate('/productos');
       } else {
         console.error('Error al agregar el post:', response.data);
@@ -51,41 +55,41 @@ const Form = () => {
     <div className="App">
       <h2 className="py-5 text-center">Agregar Producto</h2>
       <div className="row m-auto px-5">
-        <div className='form'>
-          <div className='mb-2'>
+        <div className="form">
+          <div className="mb-2">
             <h6>Agregar post</h6>
             <label>Título</label>
             <input
               onChange={(event) => setTitulo(event.target.value)}
               value={titulo}
-              className='form-control'
+              className="form-control"
             />
           </div>
-          <div className='mb-2'>
+          <div className="mb-2">
             <label>URL de la imagen</label>
             <input
               onChange={(event) => setImg(event.target.value)}
               value={img}
-              className='form-control'
+              className="form-control"
             />
           </div>
-          <div className='mb-3'>
+          <div className="mb-3">
             <label>Descripción</label> <br />
             <textarea
               onChange={(event) => setDescripcion(event.target.value)}
               value={descripcion}
-              className='form-control'
+              className="form-control"
             />
           </div>
-          <div className='mb-2'>
+          <div className="mb-2">
             <label>Precio</label>
             <input
               onChange={(event) => setPrecio(event.target.value)}
               value={precio}
-              className='form-control'
+              className="form-control"
             />
           </div>
-          <div className='d-flex'>
+          <div className="d-flex">
             <button type="button" onClick={agregarPost} className="btn btn-primary m-auto">
               Agregar
             </button>
@@ -96,4 +100,4 @@ const Form = () => {
   );
 };
 
-export default Form; 
+export default Form;
