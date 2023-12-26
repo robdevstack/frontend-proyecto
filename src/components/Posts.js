@@ -1,39 +1,27 @@
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const Posts = () => {
   const { usuarioId } = useAuth();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const token = localStorage.getItem('token');
-
-        const response = await axios.get(`https://backend-jags.onrender.com/posts?usuario_id=${usuarioId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (response.status === 200) {
-          setPosts(response.data);
-        } else {
-          console.error('Error al obtener los posts:', response.data);
-        }
-      } catch (error) {
-        console.error('Error al obtener los posts:', error.response || error.message || error);
-      }
-    };
-
-    fetchPosts();
+    // Obtiene la lista de posts desde localStorage al montar el componente
+    const storedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+    // Filtra los posts por el usuarioId actual
+    const userPosts = storedPosts.filter((post) => post.usuario_id === usuarioId);
+    setPosts(userPosts);
   }, [usuarioId]);
 
   return (
     <div>
-      <h2 className='titulo-posts'>Tus publicaciones</h2>
+      <a className="btnverde btn btn-success">
+        <Link className="navbar-brand" to="/form">
+          Volver al formulario
+        </Link>
+      </a>
+      <h2 className='titulo-posts'>Lista de Productos</h2>
       {posts.length === 0 ? (
         <p>No hay posts disponibles.</p>
       ) : (
@@ -50,7 +38,6 @@ const Posts = () => {
                 <div className="card-body">
                   <h5 className="card-title">{post.titulo}</h5>
                   <p className="card-text">${post.precio}</p>
-                  {/* Puedes personalizar el enlace según tu estructura de rutas */}
                   <Link to={`/detalle/${post.id}`} className="btn btn-primary">
                     Ver Más
                   </Link>
