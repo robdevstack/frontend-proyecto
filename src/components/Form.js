@@ -38,7 +38,7 @@ const Form = () => {
         localStorage.setItem('posts', JSON.stringify(updatedPosts));
   
         // Redirige a la ruta '/posts'
-        navigate('/posts');
+        navigate('/productos');
       } else {
         console.error('Error al agregar el post:', response.data);
       }
@@ -96,4 +96,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default Form; 
