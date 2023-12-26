@@ -13,7 +13,11 @@ const Form = () => {
 
   const agregarPost = async () => {
     try {
-      // Validaciones necesarias, por ejemplo, verificar que los campos no estén vacíos
+      // Validaciones necesarias: verificar que los campos no estén vacíos
+      if (!titulo || !img || !descripcion || !precio) {
+        alert('Rellenar todos los campos solicitados.');
+        return;
+      }
 
       const response = await axios.post(
         'https://backend-jags.onrender.com/posts',
@@ -36,7 +40,7 @@ const Form = () => {
         const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
         const updatedPosts = [...existingPosts, response.data];
         localStorage.setItem('posts', JSON.stringify(updatedPosts));
-  
+
         // Redirige a la ruta '/posts'
         navigate('/productos');
       } else {
@@ -96,4 +100,4 @@ const Form = () => {
   );
 };
 
-export default Form; 
+export default Form;
