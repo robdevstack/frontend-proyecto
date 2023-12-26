@@ -16,7 +16,7 @@ const Form = () => {
       // Validaciones necesarias, por ejemplo, verificar que los campos no estén vacíos
 
       const response = await axios.post(
-        'https://backend-jags.onrender.com/posts',
+        'http://localhost:3000/posts',
         {
           usuario_id: usuarioId,
           titulo,
@@ -38,7 +38,7 @@ const Form = () => {
         localStorage.setItem('posts', JSON.stringify(updatedPosts));
   
         // Redirige a la ruta '/posts'
-        navigate('/posts');
+        navigate('/productos');
       } else {
         console.error('Error al agregar el post:', response.data);
       }
@@ -96,4 +96,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default Form; 

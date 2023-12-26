@@ -10,6 +10,7 @@ import Posts from './components/Posts';
 import Home from './components/Home';
 import Detalle from './components/Detalle';
 import { AuthProvider } from './components/AuthContext';
+import Productos from './components/Productos';
 
 const App = () => {
   
@@ -42,7 +43,7 @@ const App = () => {
           const token = localStorage.getItem('token');
           const usuarioId = localStorage.getItem('usuarioId'); // Obtener el ID del usuario autenticado
   
-          const response = await fetch(`https://backend-jags.onrender.com/posts?usuario_id=${usuarioId}`, {
+          const response = await fetch(`http:localhost:3000/posts?usuario_id=${usuarioId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -123,6 +124,16 @@ const App = () => {
               )
             }
           />
+                    <Route
+            path='/productos'
+            element={
+              loggedIn ? (
+                <Productos posts={posts}/>
+              ) : (
+                <Navigate to='/login' />
+              )
+            }
+          />
         </Routes>
       </div>
     </Router>
@@ -130,4 +141,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App; 
