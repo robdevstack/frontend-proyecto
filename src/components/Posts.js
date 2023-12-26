@@ -65,7 +65,7 @@ const Posts = () => {
           Volver al formulario
         </Link>
       </a>
-      <h2 className='titulo-posts'>Lista de Productos</h2>
+      <h2 className='titulo-posts'>Tus Productos</h2>
       {posts.length === 0 ? <p>No hay posts disponibles.</p> : renderPosts()}
     </div>
   );
