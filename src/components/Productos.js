@@ -9,7 +9,7 @@ const Productos = () => {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/all-posts');
+        const response = await axios.get('https://backend-jags.onrender.com/all-posts');
         if (response.status === 200) {
           setProductos(response.data);
           setProductosFiltrados(response.data); // Inicialmente, los productos filtrados son los mismos que todos los productos
