@@ -34,10 +34,8 @@ const Login = ({ onLogin }) => {
       });
       const usuarioId = usuarioResponse.data.id;
       
-      // Utiliza setUsuarioId para actualizar el usuarioId en el contexto de autenticación
       setUsuarioId(usuarioId);
 
-      // Muestra alerta de éxito
       alert('Inició sesión con éxito');
 
       navigate('/profile');

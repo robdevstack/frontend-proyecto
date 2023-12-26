@@ -13,7 +13,7 @@ const Form = () => {
 
   const agregarPost = async () => {
     try {
-      // Validaciones necesarias: verificar que los campos no estén vacíos
+      // Validaciones para verificar que los campos no estén vacíos
       if (!titulo || !img || !descripcion || !precio) {
         alert('Rellenar todos los campos solicitados.');
         return;

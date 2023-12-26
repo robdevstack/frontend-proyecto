@@ -26,7 +26,7 @@ const Productos = () => {
   }, []);
 
   useEffect(() => {
-    // Filtra los productos según el título
+    // Filtra productos por título
     const productosFiltrados = productos.filter((producto) =>
       producto.titulo.toLowerCase().includes(filtro.toLowerCase())
     );
@@ -36,8 +36,6 @@ const Productos = () => {
   return (
     <div>
       <h2 className='titulo-posts'>Lista de Productos</h2>
-      
-      {/* Agrega un input para el filtro */}
       <div className="mb-3 d-flex justify-content-center align-items-center">
       <label htmlFor="filtro" className="form-label me-2"></label>
       <input

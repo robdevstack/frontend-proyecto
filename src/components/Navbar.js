@@ -5,7 +5,6 @@ const Navbar = ({ loggedIn, onLogout }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Limpia la información de inicio de sesión y redirige a la página de inicio de sesión
     localStorage.removeItem('loggedIn');
     onLogout();
     navigate('/login');

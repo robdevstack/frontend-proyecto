@@ -51,7 +51,6 @@ const App = () => {
 
   const handleAddPost = async (postData) => {
     try {
-      // Tu lógica para agregar el post al servidor
       console.log('Nuevo post:', postData);
     } catch (error) {
       console.error('Error al agregar el post:', error);
