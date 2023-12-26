@@ -15,7 +15,7 @@ const Navbar = ({ loggedIn, onLogout }) => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          Marketplace
+          Home
         </Link>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav ml-auto">
@@ -24,6 +24,11 @@ const Navbar = ({ loggedIn, onLogout }) => {
                 <li className="nav-item">
                   <Link className="nav-link" to="/profile">
                     Perfil
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/productos">
+                    Marketplace
                   </Link>
                 </li>
                 <li className="nav-item">

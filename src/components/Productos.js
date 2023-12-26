@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Productos = () => {
   const [productos, setProductos] = useState([]);
@@ -66,9 +67,9 @@ const Productos = () => {
                   <h5 className="card-title">{producto.titulo}</h5>
                   <p className="card-text">${producto.precio}</p>
                   {/* Agrega el enlace al detalle del producto si es necesario */}
-                  {/* <Link to={`/detalle/${producto.id}`} className="btn btn-primary">
+                  <Link to={`/detalle/${producto.id}`} className="btn btn-primary">
                     Ver Más
-                  </Link> */}
+                  </Link>
                 </div>
               </div>
             </div>
