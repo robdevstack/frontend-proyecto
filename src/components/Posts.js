@@ -12,7 +12,7 @@ const Posts = () => {
       try {
         const token = localStorage.getItem('token');
 
-        const response = await axios.get(`http://localhost:3000/posts?usuario_id=${usuarioId}`, {
+        const response = await axios.get(`https://backend-jags.onrender.com/posts?usuario_id=${usuarioId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
