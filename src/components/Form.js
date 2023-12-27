@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
+import swal from 'sweetalert';
 
 const Form = () => {
   const { usuarioId } = useAuth();
@@ -13,11 +14,7 @@ const Form = () => {
 
   const agregarPost = async () => {
     try {
-      // Validaciones para verificar que los campos no estén vacíos
-      if (!titulo || !img || !descripcion || !precio) {
-        alert('Rellenar todos los campos solicitados.');
-        return;
-      }
+      // Validaciones necesarias, por ejemplo, verificar que los campos no estén vacíos
 
       const response = await axios.post(
         'https://backend-jags.onrender.com/posts',
@@ -40,9 +37,12 @@ const Form = () => {
         const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
         const updatedPosts = [...existingPosts, response.data];
         localStorage.setItem('posts', JSON.stringify(updatedPosts));
-
+  
         // Redirige a la ruta '/posts'
         navigate('/productos');
+
+        // Muestra una alerta de éxito
+        swal("Producto agregado con éxito!", "cerrar", "success");
       } else {
         console.error('Error al agregar el post:', response.data);
       }

@@ -1,14 +1,24 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = ({ loggedIn, onLogout }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Verifica si estás en las rutas de Login o Register
+  const isAuthRoute = location.pathname === '/login' || location.pathname === '/register';
 
   const handleLogout = () => {
+    // Limpia la información de inicio de sesión y redirige a la página de inicio de sesión
     localStorage.removeItem('loggedIn');
     onLogout();
     navigate('/login');
   };
+
+  // Si estás en las rutas de Login o Register, no renderiza el Navbar
+  if (isAuthRoute) {
+    return null;
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
