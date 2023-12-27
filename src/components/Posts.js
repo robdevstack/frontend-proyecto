@@ -11,7 +11,7 @@ const Posts = () => {
     const fetchUserPosts = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`https://backend-jags.onrender.com/posts?usuario_id=${usuarioId}`, {
+        const response = await fetch(`http://localhost:3000/posts?usuario_id=${usuarioId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -32,41 +32,31 @@ const Posts = () => {
     fetchUserPosts();
   }, [usuarioId]);
 
-  const renderPosts = () => {
-    return (
-      <div className="row row-cols-1 row-cols-md-3 g-4">
-        {posts.map((post) => (
-          <div key={post.id} className="col">
-            <div className="card card1">
-              <img
-                src={post.img}
-                className="card-img-top"
-                alt={post.titulo}
-                style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-              />
-              <div className="card-body">
-                <h5 className="card-title">{post.titulo}</h5>
-                <p className="card-text">${post.precio}</p>
-                <Link to={`/detalle/${post.id}`} className="btn btn-primary">
-                  Ver Más
-                </Link>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
   return (
     <div>
-      <a className="btnverde btn btn-success">
-        <Link className="navbar-brand" to="/form">
-          Volver al formulario
-        </Link>
-      </a>
-      <h2 className='titulo-posts'>Tus Productos</h2>
-      {posts.length === 0 ? <p>No hay posts disponibles.</p> : renderPosts()}
+      <h2 className='titulo-posts'>Tus Publicaciones</h2>
+      <div className="overflow-auto" style={{ maxHeight: '400px' }}>
+        <div className="row mb-4">
+          {posts.map((post) => (
+            <div key={post.id} className="col mb-4">
+              <div className="card card1">
+                <img
+                  src={post.img}
+                  className="card-img-top"
+                  alt={post.titulo}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{post.titulo}</h5>
+                  <p className="card-text">${post.precio}</p>
+                  <Link to={`/detalle/${post.id}`} className="btn btn-primary">
+                    Ver Más
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
