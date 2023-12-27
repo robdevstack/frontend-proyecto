@@ -28,7 +28,7 @@ const Register = () => {
                 // Registro exitoso
                 swal("Usuario registrado con exito!", "presiona ok", "success");
 
-                navigate('/login');
+                navigate('/');
             } else {
                 console.error('Error al registrar el usuario:', response.data);
             }
@@ -85,7 +85,7 @@ const Register = () => {
                >Registrar</button>
             </div>
             <div>
-              <p class="mb-0">Ya tienes cuenta? <a class="text-white-50 fw-bold"> <Link className="navbar-brand" to="/login">
+              <p class="mb-0">Ya tienes cuenta? <a class="text-white-50 fw-bold"> <Link className="navbar-brand" to="/">
           Inicia sesión
         </Link></a>
               </p>

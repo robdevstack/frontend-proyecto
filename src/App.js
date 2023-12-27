@@ -6,7 +6,6 @@ import Register from './components/Register';
 import Profile from './components/Profile';
 import Form from './components/Form';
 import Posts from './components/Posts';
-import Home from './components/Home';
 import Detalle from './components/Detalle';
 import { AuthProvider } from './components/AuthContext';
 import Productos from './components/Productos';
@@ -63,9 +62,8 @@ const App = () => {
         <div>
           <Navbar loggedIn={loggedIn} onLogout={handleLogout} />
           <Routes>
-            <Route path='/' element={<Home />} />
             <Route
-              path='/login'
+              path='/'
               element={
                 loggedIn ? (
                   <Navigate to='/profile' />
@@ -81,7 +79,7 @@ const App = () => {
                 loggedIn ? (
                   <Form onAddPost={handleAddPost} />
                 ) : (
-                  <Navigate to='/login' />
+                  <Navigate to='/' />
                 )
               }
             />
@@ -91,7 +89,7 @@ const App = () => {
                 loggedIn ? (
                   <Posts posts={posts} />
                 ) : (
-                  <Navigate to='/login' />
+                  <Navigate to='/' />
                 )
               }
             />
@@ -103,7 +101,7 @@ const App = () => {
                     <Profile />
                   </>
                 ) : (
-                  <Navigate to='/login' />
+                  <Navigate to='/' />
                 )
               }
             />
@@ -113,7 +111,7 @@ const App = () => {
                 loggedIn ? (
                   <Detalle posts={posts} />
                 ) : (
-                  <Navigate to='/login' />
+                  <Navigate to='/' />
                 )
               }
             />
@@ -123,7 +121,7 @@ const App = () => {
                 loggedIn ? (
                   <Productos posts={posts} />
                 ) : (
-                  <Navigate to='/login' />
+                  <Navigate to='/' />
                 )
               }
             />
