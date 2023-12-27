@@ -13,7 +13,7 @@ const Profile = () => {
         const token = localStorage.getItem('token');
   
         if (usuarioId) {
-          const url = `http://localhost:3000/usuarios/${usuarioId}`;
+          const url = `https://backend-jags.onrender.com/usuarios/${usuarioId}`;
           const response = await axios.get(url, {
             headers: { Authorization: `Bearer ${token}` },
           });
