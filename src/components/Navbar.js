@@ -58,6 +58,11 @@ const Navbar = ({ loggedIn, onLogout }) => {
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/form">
+                    Formulario
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <button className="btn btn-link nav-link" onClick={handleLogout}>
                     Cerrar Sesión
                   </button>
