@@ -15,6 +15,13 @@ const Navbar = ({ loggedIn, onLogout }) => {
     localStorage.removeItem('loggedIn');
     onLogout();
     navigate('/');
+    // Cerrar el menú después de hacer clic en "Cerrar Sesión"
+    setIsNavCollapsed(true);
+  };
+
+  const handleNavLinkClick = () => {
+    // Cerrar el menú después de hacer clic en un enlace del Navbar
+    setIsNavCollapsed(true);
   };
 
   const isAuthRoute = location.pathname === '/' || location.pathname === '/register';
@@ -27,7 +34,7 @@ const Navbar = ({ loggedIn, onLogout }) => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          Logo
+          Tu Logo
         </Link>
 
         <button
@@ -48,22 +55,37 @@ const Navbar = ({ loggedIn, onLogout }) => {
             {loggedIn ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/profile">
+                  <Link
+                    className="nav-link"
+                    to="/profile"
+                    onClick={handleNavLinkClick}
+                  >
                     Perfil
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/productos">
+                  <Link
+                    className="nav-link"
+                    to="/productos"
+                    onClick={handleNavLinkClick}
+                  >
                     Marketplace
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/form">
+                  <Link
+                    className="nav-link"
+                    to="/form"
+                    onClick={handleNavLinkClick}
+                  >
                     Formulario
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <button className="btn btn-link nav-link" onClick={handleLogout}>
+                  <button
+                    className="btn btn-link nav-link"
+                    onClick={handleLogout}
+                  >
                     Cerrar Sesión
                   </button>
                 </li>
@@ -71,12 +93,20 @@ const Navbar = ({ loggedIn, onLogout }) => {
             ) : (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">
+                  <Link
+                    className="nav-link"
+                    to="/"
+                    onClick={handleNavLinkClick}
+                  >
                     Iniciar
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/register">
+                  <Link
+                    className="nav-link"
+                    to="/register"
+                    onClick={handleNavLinkClick}
+                  >
                     Registrar
                   </Link>
                 </li>
