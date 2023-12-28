@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = ({ loggedIn, onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isAuthRoute = location.pathname === '/' || location.pathname === '/register';
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+  const handleNavToggle = () => {
+    setIsNavCollapsed(!isNavCollapsed);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('loggedIn');
     onLogout();
     navigate('/');
   };
+
+  const isAuthRoute = location.pathname === '/' || location.pathname === '/register';
 
   if (isAuthRoute) {
     return null;
@@ -21,9 +27,23 @@ const Navbar = ({ loggedIn, onLogout }) => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          Home
+          Logo
         </Link>
-        <div className="collapse navbar-collapse">
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded={!isNavCollapsed ? true : false}
+          aria-label="Toggle navigation"
+          onClick={handleNavToggle}
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarNav">
           <ul className="navbar-nav ml-auto">
             {loggedIn ? (
               <>
