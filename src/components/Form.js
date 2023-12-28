@@ -14,7 +14,6 @@ const Form = () => {
 
   const agregarPost = async () => {
     try {
-      // Validaciones necesarias, por ejemplo, verificar que los campos no estén vacíos
 
       const response = await axios.post(
         'https://backend-jags.onrender.com/posts',
@@ -33,15 +32,12 @@ const Form = () => {
       );
 
       if (response.status === 200) {
-        // Actualiza la lista de posts en localStorage
         const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
         const updatedPosts = [...existingPosts, response.data];
         localStorage.setItem('posts', JSON.stringify(updatedPosts));
   
-        // Redirige a la ruta '/posts'
         navigate('/productos');
 
-        // Muestra una alerta de éxito
         swal("Producto agregado con éxito!", "cerrar", "success");
       } else {
         console.error('Error al agregar el post:', response.data);

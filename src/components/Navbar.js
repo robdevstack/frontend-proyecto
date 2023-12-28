@@ -5,17 +5,14 @@ const Navbar = ({ loggedIn, onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Verifica si estás en las rutas de Login o Register
   const isAuthRoute = location.pathname === '/' || location.pathname === '/register';
 
   const handleLogout = () => {
-    // Limpia la información de inicio de sesión y redirige a la página de inicio de sesión
     localStorage.removeItem('loggedIn');
     onLogout();
     navigate('/');
   };
 
-  // Si estás en las rutas de Login o Register, no renderiza el Navbar
   if (isAuthRoute) {
     return null;
   }

@@ -29,16 +29,13 @@ const Login = ({ onLogin }) => {
       localStorage.setItem('token', token);
       onLogin();
 
-      // Obtener el usuarioId después de iniciar sesión
       const usuarioResponse = await axios.get('https://backend-jags.onrender.com/usuarios', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const usuarioId = usuarioResponse.data.id;
       
-      // Utiliza setUsuarioId para actualizar el usuarioId en el contexto de autenticación
       setUsuarioId(usuarioId);
 
-      // Muestra alerta de éxito
       swal("Inicio de sesión exitoso!", "Presiona el botón", "success");
 
       navigate('/profile');
@@ -46,7 +43,6 @@ const Login = ({ onLogin }) => {
       console.error('Login error:', error);
       setError('Authentication failed. Please check your credentials.');
 
-      // Muestra alerta de error
       swal("Error al iniciar!", "Verifique sus credenciales", "error");
     }
   };

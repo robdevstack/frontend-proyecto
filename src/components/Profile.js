@@ -24,7 +24,6 @@ const Profile = () => {
           });
 
           setUserData(response.data);
-          // Actualizar la imagen de perfil solo si el usuarioId cambia
           setProfileImage(localStorage.getItem(`profileImage_${usuarioId}`) || null);
         } else {
           console.error('Error: usuarioId es null');
@@ -67,24 +66,19 @@ const Profile = () => {
         });
   
         console.log('URL de la imagen subida:', uploadResponse.data.url);
-        // Puedes guardar la URL de la imagen en el localStorage u otro lugar según tus necesidades.
   
-        // Muestra un alert de éxito
         alert('Imagen subida exitosamente!');
       } else {
         console.error('Error: No se ha seleccionado ninguna imagen.');
-        // Muestra un alert de error
         alert('Error: No se ha seleccionado ninguna imagen.');
       }
     } catch (error) {
       console.error('Error al subir la imagen:', error);
-      // Muestra un alert de error
       alert('Error al subir la imagen. Por favor, inténtalo de nuevo.');
     }
   };
 
   const handleButtonClick = () => {
-    // Simula un clic en el input file
     fileInputRef.current.click();
   };
 

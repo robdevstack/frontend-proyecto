@@ -13,7 +13,7 @@ const Productos = () => {
         const response = await axios.get('https://backend-jags.onrender.com/all-posts');
         if (response.status === 200) {
           setProductos(response.data);
-          setProductosFiltrados(response.data); // Inicialmente, los productos filtrados son los mismos que todos los productos
+          setProductosFiltrados(response.data); 
         } else {
           console.error('Error al obtener los productos:', response.data);
         }
@@ -26,7 +26,6 @@ const Productos = () => {
   }, []);
 
   useEffect(() => {
-    // Filtra productos por título
     const productosFiltrados = productos.filter((producto) =>
       producto.titulo.toLowerCase().includes(filtro.toLowerCase())
     );
@@ -64,7 +63,6 @@ const Productos = () => {
                 <div className="card-body">
                   <h5 className="card-title">{producto.titulo}</h5>
                   <p className="card-text">${producto.precio}</p>
-                  {/* Agrega el enlace al detalle del producto si es necesario */}
                   <Link to={`/detalle/${producto.id}`} className="btn btn-primary">
                     Ver Más
                   </Link>
