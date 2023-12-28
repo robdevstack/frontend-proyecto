@@ -38,3 +38,17 @@ code {
   .columna {
     width: 34%;
   }
+  .imgRedonda {
+    width:170px;
+    height:170px;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-radius:150px;
+}
+#uploadImage {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+}

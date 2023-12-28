@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from './AuthContext';
-import Posts from './Posts'; // Importa el componente Posts
+import axios from 'axios';
+import Posts from './Posts';
+import swal from 'sweetalert';
 
 const Profile = () => {
   const { usuarioId } = useAuth();
   const [userData, setUserData] = useState(null);
+  const [profileImage, setProfileImage] = useState(
+    localStorage.getItem(`profileImage_${usuarioId}`) || null
+  );
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -14,14 +18,14 @@ const Profile = () => {
         const token = localStorage.getItem('token');
 
         if (usuarioId) {
-          const url = `https://backend-jags.onrender.com/usuarios/${usuarioId}`;
+          const url = `http://localhost:3000/usuarios/${usuarioId}`;
           const response = await axios.get(url, {
             headers: { Authorization: `Bearer ${token}` },
           });
 
-          console.log('usuarioId:', usuarioId);
-          console.log('Datos del usuario:', response.data);
           setUserData(response.data);
+          // Actualizar la imagen de perfil solo si el usuarioId cambia
+          setProfileImage(localStorage.getItem(`profileImage_${usuarioId}`) || null);
         } else {
           console.error('Error: usuarioId es null');
         }
@@ -33,7 +37,56 @@ const Profile = () => {
     fetchProfile();
   }, [usuarioId]);
 
-  console.log('userData:', userData); // Agregado para imprimir userData en la consola
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result);
+        localStorage.setItem(`profileImage_${usuarioId}`, reader.result);
+        swal('Imagen cambiada exitosamente!', 'presiona el boton ok', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUpload = async () => {
+    try {
+      const token = localStorage.getItem('token');
+  
+      if (profileImage) {
+        const formData = new FormData();
+        formData.append('image', profileImage);
+  
+        const uploadResponse = await axios.post('https://backend-jags.onrender.com/upload', formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+  
+        console.log('URL de la imagen subida:', uploadResponse.data.url);
+        // Puedes guardar la URL de la imagen en el localStorage u otro lugar según tus necesidades.
+  
+        // Muestra un alert de éxito
+        alert('Imagen subida exitosamente!');
+      } else {
+        console.error('Error: No se ha seleccionado ninguna imagen.');
+        // Muestra un alert de error
+        alert('Error: No se ha seleccionado ninguna imagen.');
+      }
+    } catch (error) {
+      console.error('Error al subir la imagen:', error);
+      // Muestra un alert de error
+      alert('Error al subir la imagen. Por favor, inténtalo de nuevo.');
+    }
+  };
+
+  const handleButtonClick = () => {
+    // Simula un clic en el input file
+    fileInputRef.current.click();
+  };
 
   return (
     <div>
@@ -45,15 +98,24 @@ const Profile = () => {
                 <div className="card mb-3 style2">
                   <div className="row g-0">
                     <div className="col-md-4 gradient-custom text-center text-white style3">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                        alt="Avatar" className="img-fluid my-5 style4" />
+                      <img
+                        className="imgRedonda"
+                        src={profileImage || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHOXipijomsjnTofMFdcROq6_jqejPsvzfAg&usqp=CAU"}
+                        alt="Avatar"
+                      />
                       <h5>{userData.nombre}</h5>
-                      <i className="far fa-edit mb-5"></i>
-                      <button className='btn btn-primary mb-4'>subir foto</button>
+                      <button className='btn btn-primary mb-4' onClick={handleButtonClick}>Subir foto</button>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        style={{ display: 'none' }}
+                        ref={fileInputRef}
+                      />
                     </div>
                     <div className="col-md-8">
                       <div className="card-body p-4">
-                        <h6>Information</h6>
+                        <h6>Información del usuario</h6>
                         <hr className="mt-0 mb-4" />
                         <div className="row pt-1">
                           <div className="col-6 mb-3">
@@ -87,7 +149,6 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-              {/* Agrega la columna para los posts al lado derecho */}
               <div className="col col-lg-6">
                 <Posts />
               </div>
