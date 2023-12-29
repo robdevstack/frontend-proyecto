@@ -34,7 +34,6 @@ const Productos = () => {
 
   return (
     <div>
-      <h2 className='titulo-posts'>Lista de Productos</h2>
       <div className="mb-3 d-flex justify-content-center align-items-center">
         <label htmlFor="filtro" className="form-label me-2"></label>
         <input
