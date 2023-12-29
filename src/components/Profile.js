@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from './AuthContext';
 import axios from 'axios';
-import Posts from './Posts';
 import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const { usuarioId } = useAuth();
@@ -18,12 +18,13 @@ const Profile = () => {
         const token = localStorage.getItem('token');
 
         if (usuarioId) {
-          const url = `https://backend-jags.onrender.com/usuarios/${usuarioId}`;
+          const url = `http://localhost:3000/usuarios/${usuarioId}`;
           const response = await axios.get(url, {
             headers: { Authorization: `Bearer ${token}` },
           });
 
           setUserData(response.data);
+          // Actualizar la imagen de perfil solo si el usuarioId cambia
           setProfileImage(localStorage.getItem(`profileImage_${usuarioId}`) || null);
         } else {
           console.error('Error: usuarioId es null');
@@ -66,39 +67,49 @@ const Profile = () => {
         });
   
         console.log('URL de la imagen subida:', uploadResponse.data.url);
+        // Puedes guardar la URL de la imagen en el localStorage u otro lugar según tus necesidades.
   
+        // Muestra un alert de éxito
         alert('Imagen subida exitosamente!');
       } else {
         console.error('Error: No se ha seleccionado ninguna imagen.');
+        // Muestra un alert de error
         alert('Error: No se ha seleccionado ninguna imagen.');
       }
     } catch (error) {
       console.error('Error al subir la imagen:', error);
+      // Muestra un alert de error
       alert('Error al subir la imagen. Por favor, inténtalo de nuevo.');
     }
   };
 
   const handleButtonClick = () => {
+    // Simula un clic en el input file
     fileInputRef.current.click();
   };
 
   return (
     <div>
       {userData && (
-        <section className="vh-100 style1">
-          <div className="container py-5 h-100">
-            <div className="row d-flex justify-content-start align-items-start h-100">
-              <div className="col col-lg-6 mb-4 mb-lg-0">
-                <div className="card mb-3 style2">
-                  <div className="row g-0">
-                    <div className="col-md-4 gradient-custom text-center text-white style3">
-                      <img
-                        className="imgRedonda"
-                        src={profileImage || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHOXipijomsjnTofMFdcROq6_jqejPsvzfAg&usqp=CAU"}
-                        alt="Avatar"
-                      />
-                      <h5>{userData.nombre}</h5>
-                      <button className='btn btn-primary mb-4' onClick={handleButtonClick}>Subir foto</button>
+        <div className='row d-flex justify-content-center mt-4 '>
+        <div class="col-md-4">
+            <div class="card profile-card-3">
+                <div class="background-block">
+                    <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="profile-sample1" class="background"/>
+                </div>
+                <div class="profile-thumb-block">
+                    <img class="profile"
+                    alt="profile-image"
+                        src={profileImage || "https://as2.ftcdn.net/v2/jpg/04/10/43/77/1000_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg"}
+                        />
+                </div>
+                <div class="card-content">
+                    <h2>{userData.nombre}<small></small></h2>
+                    <div className='d-flex justify-content-around'>
+                    <button className='btn btn-light mt-3 mb-4' onClick={handleButtonClick}>Cambiar foto</button>
+                    <Link to="/posts">
+                    <button className='btn btn-light mt-3 mb-4'>Tus publicaciones</button>        </Link>
+                    </div>
                       <input
                         type="file"
                         accept="image/*"
@@ -107,52 +118,15 @@ const Profile = () => {
                         ref={fileInputRef}
                       />
                     </div>
-                    <div className="col-md-8">
-                      <div className="card-body p-4">
-                        <h6>Información del usuario</h6>
-                        <hr className="mt-0 mb-4" />
-                        <div className="row pt-1">
-                          <div className="col-6 mb-3">
-                            <h6>Email</h6>
-                            <p className="text-muted">{userData.email}</p>
-                          </div>
-                          <div className="col-6 mb-3">
-                            <h6>Phone</h6>
-                            <p className="text-muted">123 456 789</p>
-                          </div>
-                        </div>
-                        <h6>Projects</h6>
-                        <hr className="mt-0 mb-4" />
-                        <div className="row pt-1">
-                          <div className="col-6 mb-3">
-                            <h6>Recent</h6>
-                            <p className="text-muted">Lorem ipsum</p>
-                          </div>
-                          <div className="col-6 mb-3">
-                            <h6>Most Viewed</h6>
-                            <p className="text-muted">Dolor sit amet</p>
-                          </div>
-                        </div>
-                        <div className="d-flex justify-content-start">
-                          <a href="#!"><i className="fab fa-facebook-f fa-lg me-3"></i></a>
-                          <a href="#!"><i className="fab fa-twitter fa-lg me-3"></i></a>
-                          <a href="#!"><i className="fab fa-instagram fa-lg"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
-              <div className="col col-lg-6">
-                <Posts />
-              </div>
-            </div>
-            <p></p>
-          </div>
-        </section>
+        </div>
+        </div>
       )}
     </div>
   );
 };
 
 export default Profile;
+
+
+        

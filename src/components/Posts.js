@@ -35,36 +35,31 @@ const Posts = () => {
   return (
     <div>
       <h2 className='titulo-posts'>Tus Publicaciones</h2>
-      <div className="overflow-auto" style={{ maxHeight: '400px' }}>
-        <div className="row mb-4">
+      <div className="container d-flex justify-content-center">
+        <div className="row row-cols-1 row-cols-md-3 mb-4">
           {posts.map((post) => (
-            <div class="card border-0 rounded-0 shadow" style={{width: '18rem'}}>
-    <img src={post.img} class="card-img-top rounded-0" alt="..."/>
-    <div class="card-body mt-3 mb-3">
-        <div class="row">
-            <div class="col-10">
-                <h4 class="card-title">{post.titulo}</h4>
-                <p class="card-text">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                </p>
+            <div className="col mb-4" key={post.id}>
+              <div className="card border-0 rounded-0 shadow" style={{ width: '18rem' }}>
+                <img src={post.img} className="card-img-top rounded-0" alt="..." />
+                <div className="card-body mt-3 mb-3">
+                  <h4 className="card-title">{post.titulo}</h4>
+                  <p className="card-text">
+                    <i className="bi bi-star-fill text-warning"></i>
+                    <i className="bi bi-star-fill text-warning"></i>
+                    <i className="bi bi-star-fill text-warning"></i>
+                    <i className="bi bi-star-fill text-warning"></i>
+                  </p>
+                </div>
+                <div className="row align-items-center text-center g-0">
+                  <div className="col-4">
+                    <h5>{post.precio}</h5>
+                  </div>
+                  <div className="col-8">
+                    <a href="#" className="btn btn-dark w-100 p-3 rounded-0 text-warning">VER MAS</a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-2">
-                <i class="bi bi-bookmark-plus fs-2"></i>
-            </div>
-        </div>
-    </div>
-    <div class="row align-items-center text-center g-0">
-        <div class="col-4">
-            <h5>{post.precio}</h5>
-        </div>
-        <div class="col-8">
-            <a href="#" class="btn btn-dark w-100 p-3 rounded-0 text-warning">VER MAS</a>
-        </div>
-    </div>
-</div>
           ))}
         </div>
       </div>
