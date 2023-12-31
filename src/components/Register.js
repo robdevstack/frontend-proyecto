@@ -7,6 +7,7 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [nombre, setNombre] = useState('');
+    const [numero, setNumero] = useState('');
     const navigate = useNavigate();
 
     const handleRegister = async () => {
@@ -21,6 +22,7 @@ const Register = () => {
                     email,
                     password,
                     nombre,
+                    numero,
                 }
             );
 
@@ -56,6 +58,15 @@ const Register = () => {
                  placeholder="Nombre"
                  value={nombre}
                  onChange={(e) => setNombre(e.target.value)}/>
+                <label class="form-label" for="typeEmailX"></label>
+              </div>
+              <div class="form-outline form-white mb-4">
+                <input type="text"
+                 id="typeEmailX"
+                 className="form-control form-control-lg"
+                 placeholder="Numero telefono"
+                 value={numero}
+                 onChange={(e) => setNumero(e.target.value)}/>
                 <label class="form-label" for="typeEmailX"></label>
               </div>
 
