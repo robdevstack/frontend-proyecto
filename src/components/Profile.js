@@ -137,9 +137,11 @@ const Profile = () => {
               </div>
                </div>
                 </div>
-                 <div class="bg-light p-4 d-flex mt-5 justify-content-start text-center">
+                 <div class="bg-light p-4 d-flex mt-5 justify-content-between text-center">
                  <a class="btn btn-outline-dark btn-sm btn-block"onClick={handleButtonClik}>
                   Editar foto</a>
+                  <Link to="/form"><a class="btn btn-outline-dark btn-sm btn-block">
+                  Publicar nuevo </a></Link>
                   <input
                         type="file"
                         accept="image/*"
@@ -148,10 +150,11 @@ const Profile = () => {
                         ref={fileInputRef}
                       />
                       </div>
+
                           <div class="py-4 px-4"> 
                           <div class="d-flex align-items-center justify-content-between mb-3"> 
-                          <h5 class="mb-0">Recent photos</h5>
-                          <a href="#" class="btn btn-link text-muted"><Link to="/posts">Show all</Link> </a>
+                          <h5 class="mb-0">Tus Publicaciones</h5>
+                          <Link to="/posts"><a href="#" class="btn btn-link text-muted">Mostrar todo </a></Link>
                            </div> 
                            <div class="row"> 
                            {posts.map((post) => (
