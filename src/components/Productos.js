@@ -48,15 +48,20 @@ const Productos = () => {
       {productosFiltrados.length === 0 ? (
         <p>No hay productos disponibles.</p>
       ) : (
-        <div className="row">
+        <div className="row row-cols-1 row-cols-md-3 g-4">
           {productosFiltrados.map((producto) => (
-            <div key={producto.id} className="col">
+            <div key={producto.id} className="col mb-4">
               <div className="card rounded-top border-0 shadow w-75 mx-auto">
-              <img src={producto.img} className="rounded-top card-img-top rounded-0" alt="..." style={{ width: '100%', height: '280px', backgroundSize: 'cover' }} />
+                <img
+                  src={producto.img}
+                  className="rounded-top card-img-top rounded-0"
+                  alt="..."
+                  style={{ width: '100%', height: '280px', backgroundSize: 'cover' }}
+                />
                 <div className="card-body mt-3 mb-3">
                   <div className="row">
                     <div className="col-12 d-flex justify-content-center">
-                    <h4 className="card-title">{(producto.titulo || '').charAt(0).toUpperCase() + (producto.titulo || '').slice(1)}</h4>
+                      <h4 className="card-title">{(producto.titulo || '').charAt(0).toUpperCase() + (producto.titulo || '').slice(1)}</h4>
                     </div>
                   </div>
                 </div>

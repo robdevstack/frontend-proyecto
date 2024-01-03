@@ -39,7 +39,7 @@ const Posts = () => {
         <div className="row row-cols-1 row-cols-md-3 mb-4">
           {posts.map((post) => (
                         <div key={post.id} className="col">
-                        <div className="card rounded-top border-0 shadow w-75 mx-auto">
+              <div className="card rounded-top border-0 shadow w-75 mx-auto mb-4">
                         <img src={post.img} className="rounded-top card-img-top rounded-0" alt="..." style={{ width: '100%', height: '280px', backgroundSize: 'cover' }} />
                           <div className="card-body mt-3 mb-3">
                             <div className="row">
