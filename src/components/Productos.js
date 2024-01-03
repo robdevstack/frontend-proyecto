@@ -27,7 +27,7 @@ const Productos = () => {
 
   useEffect(() => {
     const productosFiltrados = productos.filter((producto) =>
-      producto.titulo.toLowerCase().includes(filtro.toLowerCase())
+      (producto.titulo || '').toLowerCase().includes((filtro || '').toLowerCase())
     );
     setProductosFiltrados(productosFiltrados);
   }, [filtro, productos]);
@@ -39,7 +39,7 @@ const Productos = () => {
         <input
           type="text"
           id="filtro"
-          className="form-control w-50"
+          className="form-control w-50 mt-4 mb-4"
           value={filtro}
           onChange={(e) => setFiltro(e.target.value)}
           placeholder='Buscar por nombre'
@@ -48,28 +48,19 @@ const Productos = () => {
       {productosFiltrados.length === 0 ? (
         <p>No hay productos disponibles.</p>
       ) : (
-        <div className="row row-cols-1 row-cols-md-3 g-4">
+        <div className="row">
           {productosFiltrados.map((producto) => (
             <div key={producto.id} className="col">
-              <div className="card border-0 rounded-0 shadow w-75 mx-auto">
-                <img src={producto.img} className="card-img-top rounded-0" alt="..." />
+              <div className="card rounded-top border-0 shadow w-75 mx-auto">
+              <img src={producto.img} className="rounded-top card-img-top rounded-0" alt="..." style={{ width: '100%', height: '280px', backgroundSize: 'cover' }} />
                 <div className="card-body mt-3 mb-3">
                   <div className="row">
-                    <div className="col-10">
-                      <h4 className="card-title">{producto.titulo}</h4>
-                      <p className="card-text">
-                        <i className="bi bi-star-fill text-warning"></i>
-                        <i className="bi bi-star-fill text-warning"></i>
-                        <i className="bi bi-star-fill text-warning"></i>
-                        <i className="bi bi-star-fill text-warning"></i>
-                      </p>
-                    </div>
-                    <div className="col-2">
-                      <i className="bi bi-bookmark-plus fs-2"></i>
+                    <div className="col-12 d-flex justify-content-center">
+                    <h4 className="card-title">{(producto.titulo || '').charAt(0).toUpperCase() + (producto.titulo || '').slice(1)}</h4>
                     </div>
                   </div>
                 </div>
-                <div className="row align-items-center text-center g-0">
+                <div className="row rounded-bottom align-items-center text-center g-0">
                   <div className="col-4">
                     <h5>${producto.precio}</h5>
                   </div>
