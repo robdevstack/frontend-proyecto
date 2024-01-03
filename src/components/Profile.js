@@ -4,14 +4,37 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
 import script from '../script'; // Asegúrate de que este import esté presente
-
 const Profile = () => {
   const { usuarioId } = useAuth();
   const [userData, setUserData] = useState(null);
   const [profileImage, setProfileImage] = useState(localStorage.getItem(`profileImage_${usuarioId}`) || null);
   const fileInputRef = useRef(null);
-  const [activeTheme, setActiveTheme] = useState('orange'); // Nuevo estado para el tema activo
+  const [posts, setPosts] = useState([]);
 
+  useEffect(() => {
+    const fetchUserPosts = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`https://backend-jags.onrender.com/posts?usuario_id=${usuarioId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setPosts(data);
+          localStorage.setItem('posts', JSON.stringify(data));
+        } else {
+          console.error('Error al obtener los posts del usuario:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error al obtener los posts del usuario:', error.message);
+      }
+    };
+
+    fetchUserPosts();
+  }, [usuarioId]);
 
   useEffect(() => {
     // Inicia el script que maneja el cambio de temas
@@ -100,77 +123,58 @@ const Profile = () => {
   return (
     <div>
       {userData && (
-        <div class="profile-page">
- <div class="content">
-   <div class="content__cover">
-     <img class="content__avatar" src={profileImage || "https://as2.ftcdn.net/v2/jpg/04/10/43/77/1000_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg"}/>
-     <div class="content__bull"><span></span><span></span><span></span><span></span><span></span>
-     </div>
-   </div>
-   <div class="content__actions"> <a onClick={handleButtonClik}>
-       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-         <path fill="currentColor" d="M192 256A112 112 0 1 0 80 144a111.94 111.94 0 0 0 112 112zm76.8 32h-8.3a157.53 157.53 0 0 1-68.5 16c-24.6 0-47.6-6-68.5-16h-8.3A115.23 115.23 0 0 0 0 403.2V432a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48v-28.8A115.23 115.23 0 0 0 268.8 288z"></path>
-         <path fill="currentColor" d="M480 256a96 96 0 1 0-96-96 96 96 0 0 0 96 96zm48 32h-3.8c-13.9 4.8-28.6 8-44.2 8s-30.3-3.2-44.2-8H432c-20.4 0-39.2 5.9-55.7 15.4 24.4 26.3 39.7 61.2 39.7 99.8v38.4c0 2.2-.5 4.3-.6 6.4H592a48 48 0 0 0 48-48 111.94 111.94 0 0 0-112-112z"></path>
-       </svg><span >Cambiar Foto</span></a><Link to="/posts"><a href="#">
-       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-         <path fill="currentColor" d="M208 352c-41 0-79.1-9.3-111.3-25-21.8 12.7-52.1 25-88.7 25a7.83 7.83 0 0 1-7.3-4.8 8 8 0 0 1 1.5-8.7c.3-.3 22.4-24.3 35.8-54.5-23.9-26.1-38-57.7-38-92C0 103.6 93.1 32 208 32s208 71.6 208 160-93.1 160-208 160z"></path>
-         <path fill="currentColor" d="M576 320c0 34.3-14.1 66-38 92 13.4 30.3 35.5 54.2 35.8 54.5a8 8 0 0 1 1.5 8.7 7.88 7.88 0 0 1-7.3 4.8c-36.6 0-66.9-12.3-88.7-25-32.2 15.8-70.3 25-111.3 25-86.2 0-160.2-40.4-191.7-97.9A299.82 299.82 0 0 0 208 384c132.3 0 240-86.1 240-192a148.61 148.61 0 0 0-1.3-20.1C522.5 195.8 576 253.1 576 320z"></path>
-       </svg><span>Publicaciones</span></a></Link></div>
-       <input
+        <div class="row py-5 px-4"> <div class="col-md-5 mx-auto">
+          <div class="bg-white shadow rounded overflow-hidden">
+           <div class="px-4 pt-0 pb-4 cover"> 
+           <div class="media align-items-end d-flex justify-content-start profile-head">
+            <div class="profile">
+            <img src={profileImage || "https://as2.ftcdn.net/v2/jpg/04/10/43/77/1000_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg"} alt="..." width="130" class="rounded mb-2 img-thumbnail"/>
+              </div> 
+              &nbsp;&nbsp;&nbsp;
+              <div class="media-body mb-5 ml-3 text-white "> 
+              <h4 className="card-title">{(userData.nombre || '').charAt(0).toUpperCase() + (userData.nombre || '').slice(1)}</h4>
+              <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>{userData.numero}</p> 
+              </div>
+               </div>
+                </div>
+                 <div class="bg-light p-4 d-flex mt-5 justify-content-start text-center">
+                 <a class="btn btn-outline-dark btn-sm btn-block"onClick={handleButtonClik}>
+                  Editar foto</a>
+                  <input
                         type="file"
                         accept="image/*"
                         onChange={handleImageChange}
                         style={{ display: 'none' }}
                         ref={fileInputRef}
                       />
-   <div class="content__title">
-     <h1>{userData.nombre}</h1><span className='text-secondary'>{userData.numero}</span>
-   </div>
-   <div class="content__description">
-     {/* <p>Web Producer - Web Specialist</p>
-     <p>Columbia University - New York</p> */}
-   </div>
-   {/* <ul class="content__list">
-     <li><span>65</span>Friends</li>
-     <li><span>43</span>Photos</li>
-     <li><span>21</span>Comments</li>
-   </ul> */}
-   <div class="content__button"> <Link to="/form"><a class="button" href="#">
-       <div class="button__border"></div>
-       <div class="button__bg"></div>
-       <p class="button__text">Publicar</p></a></Link></div>
- </div>
- <div class="bg">
-   <div><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-   </div>
- </div>
- <div className="theme-switcher-wrapper" id="theme-switcher-wrapper">
-            <span>Themes color</span>
-            <ul className=" d-flex justify-content-center ">
-              <li onClick={handleThemeClick} data-theme="orange">
-                <em className={activeTheme === 'orange' ? 'is-active' : ''}></em>
-              </li>
-              <li onClick={handleThemeClick} data-theme="green">
-                <em className={activeTheme === 'green' ? 'is-active' : ''}></em>
-              </li>
-              <li onClick={handleThemeClick} data-theme="purple">
-                <em className={activeTheme === 'purple' ? 'is-active' : ''}></em>
-              </li>
-              <li onClick={handleThemeClick} data-theme="blue">
-                <em className={activeTheme === 'blue' ? 'is-active' : ''}></em>
-              </li>
-            </ul>
-          </div>
-          <div
-            className="theme-switcher-button"
-            id="theme-switcher-button"
-            onClick={handleButtonClick}
-          >
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-     <path fill="currentColor" d="M352 0H32C14.33 0 0 14.33 0 32v224h384V32c0-17.67-14.33-32-32-32zM0 320c0 35.35 28.66 64 64 64h64v64c0 35.35 28.66 64 64 64s64-28.65 64-64v-64h64c35.34 0 64-28.65 64-64v-32H0v32zm192 104c13.25 0 24 10.74 24 24 0 13.25-10.75 24-24 24s-24-10.75-24-24c0-13.26 10.75-24 24-24z"></path>
-   </svg>
- </div>
-</div>
+                      </div>
+                       <div class="px-4 py-3"> <h5 class="mb-0">About</h5>
+                       <div class="p-4 rounded shadow-sm bg-light">
+                         <p class="font-italic mb-0">Web Developer</p>
+                          <p class="font-italic mb-0">Lives in New York</p> 
+                          <p class="font-italic mb-0">Photographer</p> 
+                          </div> 
+                          </div> 
+                          <div class="py-4 px-4"> 
+                          <div class="d-flex align-items-center justify-content-between mb-3"> 
+                          <h5 class="mb-0">Recent photos</h5>
+                          <a href="#" class="btn btn-link text-muted"><Link to="/posts">Show all</Link> </a>
+                           </div> 
+                           <div class="row"> 
+                           {posts.map((post) => (
+
+                           <div class="col-lg-6 mb-2 pr-lg-1">
+
+                            <img src={post.img} alt="" class="img-fluid rounded shadow-sm"/>
+
+                            </div> 
+                                                        ))} 
+
+                                  </div>
+                                  </div> 
+                                  </div> 
+                                  </div>
+        </div>
       )}
     </div>
   );
@@ -179,4 +183,6 @@ const Profile = () => {
 export default Profile;
 
 
-        
+
+
+
